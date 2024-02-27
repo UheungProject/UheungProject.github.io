@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 아래에 사용하실 우흥! 인스턴스의 이름을 입력해 주세요 --><title>
+         우흥! v1
+    </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+        integrity="sha256-tq2XQC7duQPnpdenPuR6Z5IE773aRSGjkcutnfUJuTI=" crossorigin="anonymous">
+</head>
+
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+    <script>
+      /**
+       * 우흥! 인스턴스 v1.0.0 설정
+       **/
+
+      // 수정하지 마세요
+      var version = '1.0.0';
+
+      // 인코딩된 값을 구분하기 위해 추가할 prefix 입력
+      var prefix = '우흥:v1:';
+
+      // 사용 방법을 누르면 이동할 URI 입력
+      var helpURI = 'help.html';
+
+      /**
+       * base64 변환 규칙 설정입니다.
+       * 가령 'A': '가'를 'A': '노'로 변경하면 '가' 대신 '노'가 출력됩니다.
+       * 중복된 값은 작성하지 말아주세요. (디코딩 시 오류 발생)
+       **/
+
+      var map = {
+        'A': '가', 'B': '나', 'C': '다', 'D': '라', 'E': '마',
+        'F': '바', 'G': '사', 'H': '아', 'I': '자', 'J': '차',
+        'K': '카', 'L': '타', 'M': '파', 'N': '하', 'O': '거',
+        'P': '너', 'Q': '더', 'R': '러', 'S': '머', 'T': '버',
+        'U': '서', 'V': '어', 'W': '저', 'X': '처', 'Y': '커',
+        'Z': '터', 'a': '퍼', 'b': '허', 'c': '고', 'd': '노',
+        'e': '도', 'f': '로', 'g': '모', 'h': '보', 'i': '소',
+        'j': '오', 'k': '조', 'l': '초', 'm': '코', 'n': '토',
+        'o': '포', 'p': '호', 'q': '구', 'r': '누', 's': '두',
+        't': '루', 'u': '무', 'v': '부', 'w': '수', 'x': '우',
+        'y': '주', 'z': '추', '0': '쿠', '1': '투', '2': '푸',
+        '3': '후', '4': '그', '5': '느', '6': '드', '7': '르',
+        '8': '므', '9': '브', '+': '스', '/': '으',
+      };
+
+      /**
+       * 문제 없이 설정했는지 확인하시려면 이 페이지를 브라우저로 불러오시고 '원본 텍스트'에 다음을 입력하세요.
+       * 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+/
+       * 이후 '인코딩된 텍스트'에 나온 결과물을 복사한 다음, 새로고침한 뒤에 '인코딩된 텍스트'에 복사하였던 내용을 붙여넣었을 때 위와 동일한 결과가 나온다면 올바르게 설정한 것입니다.
+       **/
+
+      /**
+       * 여기 있는 설정을 모두 변경하셨다면 8번째 줄과 61번째 줄에 우흥! 인스턴스의 이름을 입력해 주시고, 66번째 줄과 76번째 줄의 placeholder="" 내용을 적절히 수정해 주세요.
+       **/
+
+    </script>
+    <div class="max-w-md mx-auto p-6 bg-white rounded-md shadow-md">
+        <h1 class="text-2xl font-bold mb-4">
+          <!-- 여기에 사용하실 우흥! 인스턴스의 이름을 입력해 주세요 --> 우흥! v1
+        </h1>
+        <hr class="my-4">
+
+        <div class="mb-4 relative">
+            <label class="block text-sm font-medium text-gray-600">원본 텍스트</label>
+            <textarea id="originalText" placeholder="다람쥐 헌 쳇바퀴에 타고파" 
+                class="mt-1 p-2 w-full large-textarea border rounded-md transition duration-300 focus:outline-none focus:border-blue-500"></textarea>
+            <button onclick="copyToClipboard('originalText')"
+                class="text-xs absolute top-2 right-2 px-2 py-1 bg-blue-500 text-white rounded-md transition duration-300 hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">
+                복사
+            </button>
+        </div>
+
+        <div class="mb-4 relative">
+            <label class="block text-sm font-medium text-gray-600">인코딩된 텍스트</label>
+            <textarea id="encodedText" placeholder="우흥:v1:드그무조드느드파르카저더자거푸처오다라두두그로누두차버루모타버두초느가모르커거가드누거모르커주파" 
+                class="mt-1 p-2 w-full large-textarea border rounded-md transition duration-300 focus:outline-none focus:border-blue-500"></textarea>
+            <button onclick="copyToClipboard('encodedText')"
+                class="text-xs absolute top-2 right-2 px-2 py-1 bg-blue-500 text-white rounded-md transition duration-300 hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">
+                복사
+            </button>
+        </div>
+
+        <button id="helpButton"
+            class="text-xs bg-blue-500 text-white px-2 py-1 rounded-md transition duration-300 hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">
+            사용 방법
+        </button>
+
+        <button id="licenseButton"
+            class="text-xs bg-blue-500 text-white px-2 py-1 rounded-md transition duration-300 hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">
+            라이선스 확인
+        </button>
+
+        <footer id="licenseText" class="text-sm text-gray-500 mt-4 hidden">
+            <b>DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE</b><br>
+            Version 2, December 2004<br>
+            <br>
+            Copyright (C) 2004 Sam Hocevar <sam@hocevar.net><br>
+            <br>
+            Everyone is permitted to copy and distribute verbatim or modified
+            copies of this license document, and changing it is allowed as long
+            as the name is changed.<br>
+            <br>
+            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE<br>
+            TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION<br>
+            <br>
+            0. You just DO WHAT THE FUCK YOU WANT TO.
+        </footer>
+    </div>
+
+    <script>
+        function utf8Encode(input) {
+            return unescape(encodeURIComponent(input));
+        }
+
+        function utf8Decode(input) {
+            return decodeURIComponent(escape(input));
+        }
+
+        function customEncode(input) {
+            var base64Encoded = btoa(utf8Encode(input));
+
+            var customEncoded = '';
+            for (var i = 0; i < base64Encoded.length; i++) {
+                customEncoded += map[base64Encoded.charAt(i)] || base64Encoded.charAt(i);
+            }
+
+            if(customEncoded) customEncoded = prefix + customEncoded;
+
+            return customEncoded;
+        }
+
+        function customDecode(input) {
+            input = input.replace(prefix, '');
+
+            var reverseCustomMap = {};
+            for (var key in map) {
+                if (map.hasOwnProperty(key)) {
+                    reverseCustomMap[map[key]] = key;
+                }
+            }
+
+            var customDecoded = '';
+            for (var j = 0; j < input.length; j++) {
+                customDecoded += reverseCustomMap[input.charAt(j)] || input.charAt(j);
+            }
+
+            var base64Decoded = utf8Decode(atob(customDecoded));
+
+            return base64Decoded;
+        }
+
+        function updateEncodedText() {
+            var originalText = document.getElementById('originalText').value;
+            var encodedTextElement = document.getElementById('encodedText');
+
+            try {
+                var encodedText = customEncode(originalText);
+                encodedTextElement.value = encodedText;
+                encodedTextElement.classList.remove('error-border');
+            } catch (error) {
+                encodedTextElement.value = '인코딩 과정 중 오류가 발생하였습니다.';
+                encodedTextElement.classList.add('error-border');
+            }
+        }
+
+        function updateDecodedText() {
+            var encodedText = document.getElementById('encodedText').value;
+            var originalTextElement = document.getElementById('originalText');
+
+            try {
+                var decodedText = customDecode(encodedText);
+                originalTextElement.value = decodedText;
+                originalTextElement.classList.remove('error-border');
+            } catch (error) {
+                originalTextElement.value = '디코딩 과정 중 오류가 발생하였습니다.';
+                originalTextElement.classList.add('error-border');
+            }
+        }
+
+        function toggleLicenseText() {
+            var licenseText = document.getElementById('licenseText');
+            licenseText.classList.toggle('hidden');
+        }
+
+        function copyToClipboard(textareaId) {
+            var textarea = document.getElementById(textareaId);
+            textarea.select();
+            document.execCommand('copy');
+        }
+
+        function openHelp() {
+            location.href = helpURI;
+        }
+
+        document.getElementById('originalText').addEventListener('input', updateEncodedText);
+        document.getElementById('encodedText').addEventListener('input', updateDecodedText);
+
+        document.getElementById('licenseButton').addEventListener('click', toggleLicenseText);
+        document.getElementById('helpButton').addEventListener('click', openHelp);
+    </script>
+    <style>
+        .error-border {
+            border-color: #e53e3e !important;
+        }
+
+        .large-textarea {
+            min-width: 400px;
+            min-height: 100px;
+            height: auto;
+            resize: vertical;
+        }
+
+        @media screen and (max-width: 480px) {
+            .large-textarea {
+                min-width: 150px !important;
+            }
+        }
+    </style>
+</body>
+</html>
